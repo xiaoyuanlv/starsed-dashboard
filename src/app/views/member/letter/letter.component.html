@@ -1,0 +1,429 @@
+<div class="flex flex-wrap mt-4">
+
+  <!-- Letter List  -->
+  <div class="w-full mb-12 px-4" *ngIf="showLetter" style="min-height: 700px;">
+    <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded"
+      [ngClass]="color === 'light' ? 'bg-white' : 'bg-red-900 text-white'">
+      <div class="rounded-t mb-0 px-4 py-3 border-0">
+        <div class="flex flex-wrap items-center justify-between ">
+          <div class="relative w-full px-4 max-w-full flex-grow flex-1 justify-between ">
+
+            <div class="text-center flex justify-between">
+              <h6 class="text-gray-800 text-xl font-bold">
+                <i class="fas fa-mail-bulk"></i>
+                <ng-container *ngIf="isSentLetterList == true; else elseTemplate">
+                  Sent Letter
+                </ng-container>
+                <ng-template #elseTemplate>
+                  Received Letter
+                </ng-template>
+              </h6>
+
+              <div class="flex justify-between">
+                <ng-container *ngIf="isSentLetterList == true; else elseButtonTemplate">
+                  <button
+                    class="bg-white-600 text-default active:bg-white-700 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                    type="button" (click)="ShowReceivedLetter()">
+                    Received Letter List
+                  </button>
+                </ng-container>
+                <ng-template #elseButtonTemplate>
+                  <button
+                    class="bg-white-600 text-default active:bg-white-700 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                    type="button" (click)="ShowSentLetter()">
+                    Sent Letter List
+                  </button>
+                </ng-template>
+
+                <button
+                  class="bg-white-600 text-default active:bg-white-700 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                  type="button" (click)="ShowNewForm()">
+                  New Letter
+                </button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="block w-full overflow-x-auto">
+        <!-- Projects table -->
+        <table class="items-center w-full bg-transparent border-collapse">
+          <thead>
+            <tr>
+              <th
+                class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
+                [ngClass]="
+              color === 'light'
+                ? 'bg-gray-100 text-gray-600 border-gray-200'
+                : 'bg-red-800 text-red-300 border-red-700'
+            ">
+                Stamp
+              </th>
+              <th
+                class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
+                [ngClass]="
+              color === 'light'
+                ? 'bg-gray-100 text-gray-600 border-gray-200'
+                : 'bg-red-800 text-red-300 border-red-700'
+            ">
+                Title
+              </th>
+            
+              <th
+                class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
+                [ngClass]="
+              color === 'light'
+                ? 'bg-gray-100 text-gray-600 border-gray-200'
+                : 'bg-red-800 text-red-300 border-red-700'
+            ">
+                <ng-container *ngIf="isSentLetterList == true; else elseTemplate">
+                  To
+                </ng-container>
+                <ng-template #elseTemplate>
+                  From
+                </ng-template>
+              </th>
+
+              <th
+                class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
+                [ngClass]="
+              color === 'light'
+                ? 'bg-gray-100 text-gray-600 border-gray-200'
+                : 'bg-red-800 text-red-300 border-red-700'
+            ">
+                Date
+              </th>
+
+              <th
+                class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
+                [ngClass]="
+            color === 'light'
+              ? 'bg-gray-100 text-gray-600 border-gray-200'
+              : 'bg-red-800 text-red-300 border-red-700'
+          ">
+                Read
+              </th>
+              <th
+              class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
+              [ngClass]="
+          color === 'light'
+            ? 'bg-gray-100 text-gray-600 border-gray-200'
+            : 'bg-red-800 text-red-300 border-red-700'
+        ">
+              Delete
+            </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of letterArr">
+              <th
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-left flex items-center">
+
+                <img src="{{ item.stamp }}" class="bg-white" alt="..." style="height: auto; width: 55px;" />
+
+              </th>
+
+              <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
+
+                <span class=" font-bold" [ngClass]="color === 'light' ? 'text-gray-700' : 'text-white'">
+                  
+                  
+                    <i class="fas fa-check-circle" *ngIf="isreceiver && item.readStatus" ></i>
+                  
+                 {{ item.title }}
+                </span>
+
+              </td>
+
+              <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
+                <ng-container *ngIf="isSentLetterList == true; else elseTemplate">
+                  {{ item.toName }} <br />
+                  {{ item.toEmail }}
+                </ng-container>
+                <ng-template #elseTemplate>
+                  {{ item.fromName }} <br />
+                  {{ item.fromEmail }}
+                </ng-template>
+              </td>
+
+              <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
+                <span class="w-32"> {{item.sentdate.toDate() | date:'dd MMM yyyy'}} </span> <br />
+                <span class="w-32"> {{item.sentdate.toDate() | date:'h:mm:ss a'}} </span>
+              </td>
+              <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-right">
+
+                <button (click)="ReadLetter(item)"
+                  class="bg-white-600 text-default active:bg-white-700 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                  type="button">
+                  <i class="fas fa-envelope-open-text"></i>
+                </button>
+
+              </td>
+              <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-right">
+
+                <button (click)="deleteLetter(item, index)"
+                  class="bg-red-600 text-white active:bg-red-700 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                  type="button">
+                  <i class="fas fa-minus-circle"></i>
+                </button>
+
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+
+        <hr class="mt-6 border-b-1 border-gray-400" />
+
+        <div style="position: absolute; right: 10px; bottom: 10px;"
+          class="bg-white-600 mt-2 text-default text-center active:bg-white-700 font-bold uppercase text-md mb-2 rounded outline-none focus:outline-none mr-1 ease-linear transition-all duration-150">
+          Pg {{ pgnum }}
+        </div>
+
+
+        <div class="flex justify-center mb-2 mt-2 px-10 bg-white">
+
+          <div class="flex justify-between mb-2 mt-6 bg-white">
+            <button *ngIf="letterArr.length > 0 && pgnum > 1"
+              class="bg-white-600 text-default active:bg-white-700 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+              type="button" (click)="ShowPrevLetterList()">
+              <i class="fas fa-arrow-circle-left"></i>
+            </button>
+
+            <button *ngIf="letterArr.length > 0"
+              class="bg-white-600 text-default active:bg-white-700 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+              type="button" (click)="ShowNextLetterList()">
+              <i class="fas fa-arrow-circle-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Letter New Form -->
+  <div class="w-full px-4" *ngIf="showform">
+    <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-200 border-0">
+      <div class="rounded-t bg-white mb-0 px-6 py-6">
+        <div class="text-center flex justify-between">
+          <h6 class="text-gray-800 text-xl font-bold"> <i class="fas fa-at"></i> Letter</h6>
+          <button
+            class="bg-white-600 text-default active:bg-white-700 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+            type="button" (click)="ShowSentLetter()">
+            Sent Letter List
+          </button>
+        </div>
+      </div>
+
+      <form class="px-6 py-6" [formGroup]="letterForm" (ngSubmit)="onSubmit(letterForm.value)">
+        <h6 class="text-gray-500 text-sm mt-3 mb-6 font-bold uppercase">
+          User info
+        </h6>
+        <div class="flex flex-wrap">
+          <div class="w-full lg:w-6/12 px-4">
+            <div class="relative w-full mb-3">
+              <label class="block uppercase text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
+                From Email address
+              </label>
+              <input type="email" formControlName="fromEmail" disabled
+                class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                [(ngModel)]="letter.fromEmail" />
+            </div>
+          </div>
+          <div class="w-full lg:w-6/12 px-4">
+            <div class="relative w-full mb-3">
+              <label class="block uppercase text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
+                From Name
+              </label>
+              <input type="text" requiwhite
+                class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                [(ngModel)]="letter.fromName" formControlName="fromName" />
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap">
+          <div class="w-full lg:w-6/12 px-4">
+            <div class="relative w-full mb-3">
+              <label class="block uppercase text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
+                To Email address
+              </label>
+              <input type="email" formControlName="toEmail"
+                class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                [(ngModel)]="letter.toEmail" />
+            </div>
+          </div>
+          <div class="w-full lg:w-6/12 px-4">
+            <div class="relative w-full mb-3">
+              <label class="block uppercase text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
+                To Name
+              </label>
+              <input type="text" requiwhite
+                class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                [(ngModel)]="letter.toName" formControlName="toName" />
+            </div>
+          </div>
+        </div>
+
+        <hr class="mt-6 border-b-1 border-gray-400" />
+
+        <h6 class="text-gray-500 text-sm mt-3 mb-6 font-bold uppercase">
+          Stamp
+        </h6>
+
+        <div class="flex flex-wrap">
+
+          <div class="w-full lg:w-6/12 px-4">
+            <div class="relative w-full mb-3">
+              <label class="block uppercase text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
+                Choose Stamp
+              </label>
+              <select (change)="showStamp(letterForm.value)" formControlName="stamp" [(ngModel)]="letter.stamp"
+                class="w-full bg-white px-3 py-5 " style="height: 44px;">
+                <option value="">Choose one</option>
+
+                <option *ngFor="let stamp of stampArr" value="{{ stamp.photoURL }}">{{ stamp.title }}</option>
+
+              </select>
+            </div>
+          </div>
+
+
+          <div class="w-full lg:w-6/12 px-4 mt-6">
+            <div class="relative w-full mb-3">
+              <input type="hidden" formControlName="stamp" [(ngModel)]="letter.stamp" />
+              <img src="{{ letter.stamp }}" width="100px" style="height: auto;" />
+            </div>
+          </div>
+
+        </div>
+
+
+        <hr class="mt-6 border-b-1 border-gray-400" />
+
+        <h6 class="text-gray-500 text-sm mt-3 mb-6 font-bold uppercase">
+          Write
+        </h6>
+        <div class="flex flex-wrap">
+
+          <div class="w-full lg:w-6/12 px-4">
+            <div class="relative w-full mb-3">
+              <label class="block uppercase text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
+                Title
+              </label>
+              <input type="text" formControlName="title"
+                class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                [(ngModel)]="letter.title" requiwhite />
+            </div>
+          </div>
+
+
+        </div>
+        <div class="flex flex-wrap">
+          <div class="w-full lg:w-12/12 px-4">
+            <div class="relative w-full mb-3">
+              <label class="block uppercase text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
+                Message
+              </label>
+              <textarea type="text" formControlName="message"
+                class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                rows="4" [(ngModel)]="letter.message"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <hr class="mt-6 border-b-1 border-gray-400" />
+
+        <div class="w-full px-4 mt-5 align-items-center text-center">
+
+          <button [disabled]="!letterForm.valid"
+            class="bg-gray-900 text-white active:bg-gray-700 font-bold uppercase text-xs px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1  ease-linear transition-all duration-150"
+            type="submit">
+            Save
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+  <!-- Read Letter -->
+  <div class="w-full px-4" *ngIf="showModal">
+    <div *ngIf="selectedLetter"
+      class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-white border-0">
+
+      <div class="rounded-t bg-gray-200 mb-0 px-6 py-6">
+        <div class="text-center flex justify-between">
+          <h6 class="text-gray-800 text-xl font-bold">
+            <i class="fas fa-envelope-open-text"></i> The Letter
+          </h6>
+          <button
+            class="bg-white-600 text-default active:bg-white-700 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+            type="button" (click)="CloseLetter()">
+            Close
+          </button>
+        </div>
+      </div>
+
+
+      <div class="flex flex-wrap justify-between mt-6">
+        <div class="w-9/12 sm:w-4/12 px-4">
+          <h6 class="text-gray-800 text-xl font-bold">
+            {{ selectedLetter.title }}
+          </h6>
+
+          <div class="relative w-full mb-3 mt-2">
+            <label class="block uppercase text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
+              <span class="text-xs font-semibold inline-block py-1 px-2 uppercase last:mr-0 mr-1">
+                to
+              </span> {{ selectedLetter.toName }}
+              <br />
+              <span
+                class="text-xs font-semibold inline-block py-1 px-2 uppercase last:mr-0 mr-1">
+                {{ selectedLetter.toEmail }}
+              </span>
+            </label>
+          </div>
+        </div>
+        <div class="w-3/12 sm:w-4/12 px-4">
+          <img src="{{ selectedLetter.stamp }}" alt="..."
+            class="shadow rounded max-w-120-px h-auto align-middle border-none" />
+        </div>
+      </div>
+
+      <div class="flex flex-wrap">
+        <div class="w-full lg:w-12/12 px-4">
+          <div class="relative w-full mb-3 mt-5 rounded card shadow" style="min-height: 200px;">
+            <div class="px-4 py-5 flex-auto">
+              <p class="mb-4 text-sm lg:w-12/12 justify-center inline-block px-4 text-gray-800">
+
+                {{ selectedLetter.message }}
+
+              </p>
+            </div>
+          </div>
+
+          <div class="w-full lg:w-12/12 px-4 mt-5">
+            <div class="relative w-full justify-self-end mb-3">
+              <label class="block uppercase text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
+                <span class="text-xs font-semibold inline-block py-1 px-2 uppercase last:mr-0 mr-1">
+                  from
+                </span> {{ selectedLetter.fromName }}
+                <br />
+                <span
+                  class="text-xs font-semibold inline-block py-1 px-2 uppercase last:mr-0 mr-1">
+                  {{ selectedLetter.fromEmail }}
+                </span>
+              </label>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+
+</div>

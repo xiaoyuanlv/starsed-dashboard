@@ -1,0 +1,353 @@
+<div class="flex flex-wrap">
+  <div class="w-full lg:w-8/12 px-4">
+
+    <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-200 border-0">
+      <div class="rounded-t bg-white mb-0 px-6 py-6">
+        <div class="text-center flex justify-between">
+          <h6 class="text-gray-800 text-xl font-bold">My account</h6>
+          <!-- <button
+            class="bg-red-600 text-white active:bg-red-700 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+            type="button">
+            Settings
+          </button> -->
+        </div>
+      </div>
+      <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
+        <form [formGroup]="profileForm" (ngSubmit)="onSubmit(profileForm.value)">
+          <h6 class="text-gray-500 text-sm mt-3 mb-6 font-bold uppercase">
+            User info
+          </h6>
+          <div class="flex flex-wrap">
+            <div class="w-full lg:w-6/12 px-4">
+              <div class="relative w-full mb-3">
+                <label class="block uppercase text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
+                  Email address
+                </label>
+                <input type="email" formControlName="email" disabled
+                  class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                  [(ngModel)]="member.email" />
+              </div>
+            </div>
+            <div class="w-full lg:w-6/12 px-4">
+              <div class="relative w-full mb-3">
+                <label class="block uppercase text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
+                  Name
+                </label>
+                <input type="text" required
+                  class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                  [(ngModel)]="member.displayName" formControlName="displayName" />
+
+              </div>
+            </div>
+          </div>
+
+          <hr class="mt-6 border-b-1 border-gray-400" />
+
+          <h6 class="text-gray-500 text-sm mt-3 mb-6 font-bold uppercase">
+            PhotoURL
+          </h6>
+
+          <div class="flex flex-wrap">
+            <div class="w-full lg:w-4/12 px-4">
+              <div class="relative w-full mb-3">
+                <label class="block uppercase text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
+                  username
+                </label>
+                <input type="text"
+                  class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                  value="{{ member.username }}" required [(ngModel)]="member.username" formControlName="username" />
+
+              </div>
+            </div>
+            <div class="w-full lg:w-4/12 px-4">
+              <div class="relative w-full mb-3">
+                <label class="block uppercase text-gray-700 text-xs font-bold mb-2">
+                  Avatar
+                </label>
+                <select formControlName="avatar" [(ngModel)]="member.avatar" class="w-full bg-white px-3 py-5 "
+                  style="height: 44px;">
+                  <option value="-">Choose one</option>
+
+                  <option *ngFor="let avatar of avatar_arr" value="{{ avatar }}">{{ avatar }}</option>
+
+                </select>
+              </div>
+            </div>
+
+            <div class="w-full lg:w-4/12 px-4">
+              <div class="relative w-full mb-3">
+                <label class="block uppercase text-gray-700 text-xs font-bold mb-4">
+                  username + avatar
+                </label>
+
+
+                <a class="mt-5" (click)="showAvatar(profileForm.value)" style="height: 50px; cursor: pointer;"
+                  class="bg-gray-900 text-white active:bg-gray-700 font-bold uppercase text-xs px-3 py-4 mt-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1  ease-linear transition-all duration-150">
+                  Apply PhotoURL
+                </a>
+
+              </div>
+            </div>
+
+            <div class="w-full lg:w-4/12 px-4 mt-6">
+              <div class="relative w-full mb-3">
+                <label class="block uppercase text-gray-700 text-xs font-bold mb-2">
+                  Image
+                </label>
+
+                <img src="{{ member.photoURL }}" width="70px" height="70px" />
+
+
+              </div>
+            </div>
+
+
+
+            <div class="w-full lg:w-8/12 px-4 mt-6">
+              <div class="relative w-full mb-3">
+                <label class="block uppercase text-gray-700 text-xs font-bold mb-2">
+                  PhotoURL
+                </label>
+
+                <input type="text" required
+                  class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                  (change)="ApplyPhotoURL(profileForm.value)" formControlName="photoURL"
+                  [(ngModel)]="member.photoURL" />
+
+              </div>
+            </div>
+
+          </div>
+
+          <hr class="mt-6 border-b-1 border-gray-400" />
+
+
+          <h6 class="text-gray-500 text-sm mt-3 mb-6 font-bold uppercase">
+            Info
+          </h6>
+          <div class="flex flex-wrap">
+
+            <div class="w-full lg:w-6/12 px-4">
+              <div class="relative w-full mb-3">
+                <label class="block uppercase text-gray-700 text-xs font-bold mb-2">
+                  Date of Birth
+                </label>
+                <input type="date" formControlName="dob"
+                  class="form-control form-input date-input patient-intake-input px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                  [(ngModel)]="member.dob" placeholder="d - M - yyyy" required>
+
+              </div>
+            </div>
+            <div class="w-full lg:w-6/12 px-4">
+              <div class="relative w-full mb-3">
+                <label class="block uppercase text-gray-700 text-xs font-bold mb-2">
+                  Star Sign ( Zodiac )
+                </label>
+
+                <select formControlName="starsign" [(ngModel)]="member.starsign" class="w-full bg-white px-3 py-5 "
+                  style="height: 44px;" required>
+                  <option value="">Choose one</option>
+
+                  <option *ngFor="let star of star_arr" value="{{ star }}">{{ star }}</option>
+
+                </select>
+
+
+              </div>
+            </div>
+
+          </div>
+
+          <div class="flex flex-wrap">
+
+            <div class="w-full lg:w-6/12 px-4">
+              <div class="relative w-full mb-3">
+                <label class="block uppercase text-gray-700 text-xs font-bold mb-2">
+                  Language
+                </label>
+                <input type="text" [(ngModel)]="member.language" formControlName="language"
+                  class="form-control form-input date-input patient-intake-input px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                  required>
+
+              </div>
+            </div>
+            <div class="w-full lg:w-6/12 px-4">
+              <div class="relative w-full mb-3">
+                <label class="block uppercase text-gray-700 text-xs font-bold mb-2">
+                  Skill
+                </label>
+                <input type="text" formControlName="skill"
+                  class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                  [(ngModel)]="member.skill" required />
+              </div>
+            </div>
+
+          </div>
+
+          <div class="flex flex-wrap">
+
+            <div class="w-full lg:w-6/12 px-4">
+              <div class="relative w-full mb-3">
+                <label class="block uppercase text-gray-700 text-xs font-bold mb-2">
+                  Gender
+                </label>
+                <input type="text" [(ngModel)]="member.gender" formControlName="gender"
+                  class="form-control form-input date-input patient-intake-input px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                  required>
+
+              </div>
+            </div>
+            <div class="w-full lg:w-6/12 px-4">
+              <div class="relative w-full mb-3">
+                <label class="block uppercase text-gray-700 text-xs font-bold mb-2">
+                  Religion
+                </label>
+                <input type="text" formControlName="religion"
+                  class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                  [(ngModel)]="member.religion" required />
+              </div>
+            </div>
+
+          </div>
+
+
+          <hr class="mt-6 border-b-1 border-gray-400" />
+
+
+          <h6 class="text-gray-500 text-sm mt-3 mb-6 font-bold uppercase">
+            Where am I
+          </h6>
+          <div class="flex flex-wrap">
+
+            <div class="w-full lg:w-6/12 px-4">
+              <div class="relative w-full mb-3">
+                <label class="block uppercase text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
+                  City
+                </label>
+                <input type="text" formControlName="city"
+                  class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                  [(ngModel)]="member.city" required />
+              </div>
+            </div>
+            <div class="w-full lg:w-6/12 px-4">
+              <div class="relative w-full mb-3">
+                <label class="block uppercase text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
+                  Country
+                </label>
+                <input type="text" formControlName="country"
+                  class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                  [(ngModel)]="member.country" required />
+              </div>
+            </div>
+
+          </div>
+
+          <hr class="mt-6 border-b-1 border-gray-400" />
+
+          <h6 class="text-gray-500 text-sm mt-3 mb-6 font-bold uppercase">
+            About Me
+          </h6>
+          <div class="flex flex-wrap">
+            <div class="w-full lg:w-12/12 px-4">
+              <div class="relative w-full mb-3">
+                <label class="block uppercase text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
+                  About me
+                </label>
+                <textarea type="text" formControlName="about" required
+                  class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                  rows="4" [(ngModel)]="member.about"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <hr class="mt-6 border-b-1 border-gray-400" />
+
+          <div class="w-full px-4 mt-5 align-items-center text-center">
+
+            <button
+              class="bg-gray-900 text-white active:bg-gray-700 font-bold uppercase text-xs px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1  ease-linear transition-all duration-150"
+              type="submit">
+              Save
+            </button>
+
+
+
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+  <div class="w-full lg:w-4/12 px-4">
+
+    <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg mt-16">
+      <div class="px-6">
+        <div class="flex flex-wrap justify-center">
+          <div class="w-full px-4 flex mb-2 justify-center">
+            <div class="relative">
+              <img *ngIf="member.photoURL" alt="..." src="{{ member.photoURL }}"
+                class=" rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-120-px" />
+            </div>
+          </div>
+
+        </div>
+        <div class="text-center mt-12">
+          <h3 class="text-xl font-semibold leading-normal mb-2 text-gray-800 mb-2">
+            {{ member.displayName }}
+          </h3>
+
+
+          <div class="mt-5 mb-5">
+            <span class="text-xs font-semibold inline-block py-1 px-2 mt-2 uppercase rounded last:mr-0 mr-1 text-indigo-600 bg-indigo-200">
+              <i class="fas fa-birthday-cake mr-2 text-sm"></i> {{ member.dob }}
+            </span>
+
+            <span class="text-xs font-semibold inline-block py-1 px-2 mt-2 uppercase rounded last:mr-0 mr-1 text-indigo-600 bg-indigo-200">
+              <i class="fas fa-star mr-2 text-sm"></i> {{ member.starsign }}
+            </span>
+
+            <span class="text-xs font-semibold inline-block py-1 px-2 mt-2 uppercase rounded last:mr-0 mr-1 text-indigo-600 bg-indigo-200">
+              <i class="fas fa-comment mr-2 text-sm"></i> {{ member.language }}
+            </span>
+
+            <span class="text-xs font-semibold inline-block py-1 px-2 mt-2 uppercase rounded last:mr-0 mr-1 text-indigo-600 bg-indigo-200">
+              <i class="fas fa-moon mr-2 text-sm"></i> {{ member.religion }}
+            </span>
+
+            <span class="text-xs font-semibold inline-block py-1 px-2 mt-2 uppercase rounded last:mr-0 mr-1 text-indigo-600 bg-indigo-200">
+              <i class="fas fa-shapes mr-2 text-sm"></i> {{ member.skill }}
+            </span>
+
+            <span class="text-xs font-semibold inline-block py-1 px-2 mt-2 uppercase rounded last:mr-0 mr-1 text-indigo-600 bg-indigo-200">
+              <i class="fas fa-user mr-2 text-sm"></i> {{ member.gender }}
+            </span>
+          </div>
+
+          <div *ngIf="member.country" class="text-xs mt-5 mb-2 text-gray-800 font-bold uppercase">
+            <i class="fas fa-map-marker-alt mr-2 text-sm text-gray-800"></i>
+            {{ member.city }}, {{ member.country }}
+          </div>
+
+          <div class="text-sm leading-normal mt-6 mb-2">
+            <i class="fas fa-envelope mr-2 text-sm"></i>
+            <br />
+            {{ member.email }}
+          </div>
+
+        </div>
+        <div class="mt-10 py-10 border-t border-gray-300 text-center">
+          <div class="flex flex-wrap justify-center">
+            <div class="w-full lg:w-9/12 px-4">
+              <p class="mb-4 text-md leading-relaxed text-gray-800">
+                {{ member.about }}
+              </p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

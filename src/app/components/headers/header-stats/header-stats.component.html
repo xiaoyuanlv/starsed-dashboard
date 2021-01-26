@@ -1,0 +1,70 @@
+<!-- Header -->
+<div class="relative bg-indigo-600 md:pt-32 pb-32 pt-12">
+  <div class="px-4 md:px-10 mx-auto w-full">
+    <div>
+      <!-- Card stats -->
+      <div class="flex flex-wrap">
+
+        <ng-container *ngIf="deletionAcc">
+          <p class="font-semibold text-white mt-2 mb-2 card shadow px-2 py-2">
+           Hi {{ user.displayName }}, Your account has been scheduled to delete after {{deletionAcc.mdate.toDate() | date:'dd MMM yyyy'}}
+          </p>
+           <button (click)="CancelDeletionAcc()" 
+           class="bg-red-900 text-white active:bg-red-700 font-bold uppercase text-xs px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1  ease-linear transition-all duration-150"
+           type="button">
+           Cance Deletion
+         </button>
+       </ng-container>
+
+        <!-- <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
+          <app-card-stats
+            statSubtitle="TRAFFIC"
+            statTitle="350,897"
+            statArrow="up"
+            statPercent="3.48"
+            statPercentColor="text-green-500"
+            statDescripiron="Since last month"
+            statIconName="far fa-chart-bar"
+            statIconColor="bg-indigo-500"
+          ></app-card-stats>
+        </div>
+        <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
+          <app-card-stats
+            statSubtitle="NEW USERS"
+            statTitle="2,356"
+            statArrow="down"
+            statPercent="3.48"
+            statPercentColor="text-indigo-500"
+            statDescripiron="Since last week"
+            statIconName="fas fa-chart-pie"
+            statIconColor="bg-orange-500"
+          ></app-card-stats>
+        </div>
+        <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
+          <app-card-stats
+            statSubtitle="SALES"
+            statTitle="924"
+            statArrow="down"
+            statPercent="1.10"
+            statPercentColor="text-orange-500"
+            statDescripiron="Since yesterday"
+            statIconName="fas fa-users"
+            statIconColor="bg-pink-500"
+          ></app-card-stats>
+        </div>
+        <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
+          <app-card-stats
+            statSubtitle="PERFORMANCE"
+            statTitle="49,65%"
+            statArrow="up"
+            statPercent="12"
+            statPercentColor="text-green-500"
+            statDescripiron="Since last month"
+            statIconName="fas fa-percent"
+            statIconColor="bg-green-500"
+          ></app-card-stats>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>

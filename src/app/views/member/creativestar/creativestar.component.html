@@ -1,0 +1,412 @@
+<div class="flex flex-wrap mt-4">
+
+    <!-- CreativeStar List  -->
+    <div class="w-full mb-12 px-4" *ngIf="showCreativeStar" style="min-height: 700px;">
+        <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded"
+            [ngClass]="color === 'light' ? 'bg-white' : 'bg-red-900 text-white'">
+            <div class="rounded-t mb-0 px-4 py-3 border-0">
+                <div class="flex flex-wrap items-center justify-between ">
+                    <div class="relative w-full px-4 max-w-full flex-grow flex-1 justify-between ">
+
+                        <div class="text-center flex justify-between">
+                            <h6 class="text-gray-800 text-xl font-bold">
+                                <i class="fas fa-star"></i>
+                                Creative Stars  
+                            </h6>
+
+                            <p class="text-xs">
+                                <ng-container *ngIf="starArr.length < totallimit; else totalLimitElse">
+                                {{ starArr.length }} / {{ totallimit }} stars
+                                </ng-container>
+                                <ng-template #totalLimitElse>
+                                    Yo! Full of 31 Creatives Star
+                                </ng-template>
+                            </p>
+                            
+
+                            <div class="flex justify-between">
+                                <button *ngIf="starArr.length < totallimit"
+                                    class="bg-white-600 text-default active:bg-white-700 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                                    type="button" (click)="ShowNewForm()">
+                                    New CreativeStar 
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="block w-full overflow-x-auto">
+                <!-- Projects table -->
+                <table class="items-center w-full bg-transparent border-collapse">
+                    <thead>
+                        <tr>
+                            <th class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
+                                [ngClass]="
+                color === 'light'
+                  ? 'bg-gray-100 text-gray-600 border-gray-200'
+                  : 'bg-red-800 text-red-300 border-red-700'
+              ">
+                                Photo
+                            </th>
+                            <th class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
+                                [ngClass]="
+                color === 'light'
+                  ? 'bg-gray-100 text-gray-600 border-gray-200'
+                  : 'bg-red-800 text-red-300 border-red-700'
+              ">
+                                Title
+                            </th>
+
+                            <th class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
+                                [ngClass]="
+                color === 'light'
+                  ? 'bg-gray-100 text-gray-600 border-gray-200'
+                  : 'bg-red-800 text-red-300 border-red-700'
+              ">
+                                Browse
+                            </th>
+
+                            <th class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
+                                [ngClass]="
+                color === 'light'
+                  ? 'bg-gray-100 text-gray-600 border-gray-200'
+                  : 'bg-red-800 text-red-300 border-red-700'
+              ">
+                                Date
+                            </th>
+
+                            <th class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
+                                [ngClass]="
+              color === 'light'
+                ? 'bg-gray-100 text-gray-600 border-gray-200'
+                : 'bg-red-800 text-red-300 border-red-700'
+            ">
+                                Read
+                            </th>
+
+                            <th class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
+                            [ngClass]="
+          color === 'light'
+            ? 'bg-gray-100 text-gray-600 border-gray-200'
+            : 'bg-red-800 text-red-300 border-red-700'
+        ">
+                            Edit
+                        </th>
+
+                            <th class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
+                            [ngClass]="
+          color === 'light'
+            ? 'bg-gray-100 text-gray-600 border-gray-200'
+            : 'bg-red-800 text-red-300 border-red-700'
+        ">
+                            Delete
+                        </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of starArr">
+                            <th
+                                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-left flex items-center">
+
+                                <img src="{{ item.photoURL }}" class="bg-white" alt="..."
+                                    style="height: auto; width: 55px;" />
+
+                            </th>
+
+                            <td
+                                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
+
+                                <span class=" font-bold" [ngClass]="color === 'light' ? 'text-gray-700' : 'text-white'">
+
+
+                                    <i class="fas fa-star" [ngStyle]="{'color': item.color}"></i>
+
+                                    {{ item.title }}
+                                </span>
+
+                            </td>
+
+                            <td
+                                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
+                                <a href="{{ item.browseurl }}" target="_blank"
+                                    class="bg-white-600 text-default active:bg-white-700 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                                    >
+                                    <i class="fas fa-globe"></i>
+                                </a>
+                            </td>
+
+                            <td
+                                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
+                                <span class="w-32"> {{item.createdDate.toDate() | date:'dd MMM yyyy'}} </span> <br />
+                                <span class="w-32"> {{item.createdDate.toDate() | date:'h:mm:ss a'}} </span>
+                            </td>
+                            <td
+                                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-right">
+
+                                <button (click)="ReadCreativeStar(item)"
+                                    class="bg-white-600 text-default active:bg-white-700 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                                    type="button">
+                                    <i class="fas fa-envelope-open-text"></i>
+                                </button>
+
+                            </td>
+                            <td
+                            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-right">
+
+                            <button (click)="editCreativeStar(item)"
+                                class="bg-red-600 text-white active:bg-red-700 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                                type="button">
+                                <i class="fas fa-edit"></i>
+                            </button>
+
+                        </td>
+                            <td
+                                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-right">
+
+                                <button (click)="deleteCreativeStar(item, index)"
+                                    class="bg-red-600 text-white active:bg-red-700 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                                    type="button">
+                                    <i class="fas fa-minus-circle"></i>
+                                </button>
+
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+                <hr class="mt-6 border-b-1 border-gray-400" />
+
+                <div style="position: absolute; right: 10px; bottom: 10px;"
+                    class="bg-white-600 mt-2 text-default text-center active:bg-white-700 font-bold uppercase text-md mb-2 rounded outline-none focus:outline-none mr-1 ease-linear transition-all duration-150">
+                    <!-- Pg {{ starpgnum }} -->
+                </div>
+
+
+                <div class="flex justify-center mb-2 mt-2 px-10 bg-white">
+
+                    <div class="flex justify-between mb-2 mt-6 bg-white">
+                        <!-- <button *ngIf="starArr.length > 0 && starpgnum > 1"
+                            class="bg-white-600 text-default active:bg-white-700 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                            type="button" (click)="ShowPrevCreativeStarList()">
+                            <i class="fas fa-arrow-circle-left"></i>
+                        </button>
+
+                        <button *ngIf="starArr.length > 0"
+                            class="bg-white-600 text-default active:bg-white-700 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                            type="button" (click)="ShowNextCreativeStarList()">
+                            <i class="fas fa-arrow-circle-right"></i>
+                        </button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CreativeStar New Form -->
+    <div class="w-full px-4" *ngIf="showform">
+        <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-200 border-0">
+            <div class="rounded-t bg-white mb-0 px-6 py-6">
+                <div class="text-center flex justify-between">
+                    <h6 class="text-gray-800 text-xl font-bold"> <i class="fas fa-star"></i> CreativeStar</h6>
+                    <button
+                        class="bg-white-600 text-default active:bg-white-700 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                        type="button" (click)="ShowCreativeStar()">
+                        Show List
+                    </button>
+                </div>
+            </div>
+
+            <form class="px-6 py-6" [formGroup]="CreativeStarForm" (ngSubmit)="onSubmit(CreativeStarForm.value)">
+                <h6 class="text-gray-500 text-sm mt-3 mb-6 font-bold uppercase">
+                    Info
+                </h6>
+                <div class="flex flex-wrap">
+                    <div class="w-full lg:w-6/12 px-4">
+                        <div class="relative w-full mb-3">
+                            <label class="block uppercase text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
+                                Email address
+                            </label>
+                            <input type="email" formControlName="email" disabled
+                                class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                                [(ngModel)]="CreativeStar.email" />
+                        </div>
+                    </div>
+                    <div class="w-full lg:w-6/12 px-4">
+                        <div class="relative w-full mb-3">
+                            <label class="block uppercase text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
+                                Author
+                            </label>
+                            <input type="text" required
+                                class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                                [(ngModel)]="CreativeStar.author" formControlName="author" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap">
+                    <div class="w-full lg:w-6/12 px-4">
+                        <div class="relative w-full mb-3">
+                            <label class="block uppercase text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
+                                Browse Url
+                            </label>
+                            <input type="text" formControlName="browseurl"
+                                class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                                [(ngModel)]="CreativeStar.browseurl" />
+                        </div>
+                    </div>
+                    <div class="w-full lg:w-6/12 px-4">
+                        <div class="relative w-full mb-3">
+                            <label class="block uppercase text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
+                                Color
+                            </label>
+                            <input type="text" required
+                                class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                                [(ngModel)]="CreativeStar.color" formControlName="color" />
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="mt-6 border-b-1 border-gray-400" />
+
+                <h6 class="text-gray-500 text-sm mt-3 mb-6 font-bold uppercase">
+                    PhotoURL
+                </h6>
+
+                <div class="flex flex-wrap">
+
+                    <div class="w-full lg:w-6/12 px-4">
+                        <div class="relative w-full mb-3">
+                            <label class="block uppercase text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
+                                Photo URL
+                            </label>
+                            <input type="text" required (change)="ShowPhotoURL(CreativeStarForm.value)"
+                                class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                                [(ngModel)]="CreativeStar.photoURL" formControlName="photoURL" />
+                        </div>
+                    </div>
+
+
+                    <div class="w-full lg:w-6/12 px-4 mt-6">
+                        <div class="relative w-full mb-3">
+                            <img src="{{ CreativeStar.photoURL }}" width="100px" style="height: auto;" />
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <hr class="mt-6 border-b-1 border-gray-400" />
+
+                <h6 class="text-gray-500 text-sm mt-3 mb-6 font-bold uppercase">
+                    About
+                </h6>
+                <div class="flex flex-wrap">
+
+                    <div class="w-full lg:w-6/12 px-4">
+                        <div class="relative w-full mb-3">
+                            <label class="block uppercase text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
+                                Title
+                            </label>
+                            <input type="text" formControlName="title"
+                                class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                                [(ngModel)]="CreativeStar.title" required />
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="flex flex-wrap">
+                    <div class="w-full lg:w-12/12 px-4">
+                        <div class="relative w-full mb-3">
+                            <label class="block uppercase text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
+                                Description
+                            </label>
+                            <textarea type="text" formControlName="description"
+                                class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                                rows="4" [(ngModel)]="CreativeStar.description"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="mt-6 border-b-1 border-gray-400" />
+
+                <div class="w-full px-4 mt-5 align-items-center text-center">
+
+                    <button [disabled]="!CreativeStarForm.valid"
+                        class="bg-gray-900 text-white active:bg-gray-700 font-bold uppercase text-xs px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1  ease-linear transition-all duration-150"
+                        type="submit">
+                        Save
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+    <!-- Read CreativeStar -->
+    <div class="w-full px-4" *ngIf="showModal">
+        <div *ngIf="selectedCreativeStar"
+            class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-white border-0">
+
+            <div class="rounded-t bg-gray-200 mb-0 px-6 py-6">
+                <div class="text-center flex justify-between">
+                    <h6 class="text-gray-800 text-xl font-bold">
+                        <i class="fas fa-star"></i> The CreativeStar
+                    </h6>
+                    <button
+                        class="bg-white-600 text-default active:bg-white-700 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                        type="button" (click)="CloseCreativeStar()">
+                        Close
+                    </button>
+                </div>
+            </div>
+
+
+            <div class="flex flex-wrap justify-between mt-6">
+                <div class="w-9/12 sm:w-4/12 px-4">
+                    <h6 class="text-gray-800 text-xl font-bold">
+                        <i class="fas fa-star" [ngStyle]="{'color': selectedCreativeStar.color}"></i> {{ selectedCreativeStar.title }}
+                    </h6>
+
+                    <div class="relative w-full mb-3 mt-3">
+                        <label class="block uppercase text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase last:mr-0 mr-1">
+                                Author
+                            </span> {{ selectedCreativeStar.author }}
+                            <br />
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase last:mr-0 mr-1">
+                                {{ selectedCreativeStar.email }}
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                <div class="w-3/12 sm:w-4/12 px-4">
+                    <img src="{{ selectedCreativeStar.photoURL }}" alt="..."
+                        class="shadow rounded max-w-120-px h-auto align-middle border-none" />
+                </div>
+            </div>
+
+           
+
+           
+
+            <div class="flex flex-wrap">
+                <div class="w-full lg:w-12/12 px-4">
+                    <div class="relative w-full mb-3 rounded card shadow">
+                        <div class="px-4 py-5">
+                            <p class="mb-4 text-sm lg:w-12/12 inline-block px-4 text-gray-800 justify-center text-center">
+
+                                {{ selectedCreativeStar.description }}
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
